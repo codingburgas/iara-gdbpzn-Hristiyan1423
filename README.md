@@ -25,6 +25,13 @@ This project models the core workflows of IARA — the Bulgarian government agen
 
 ---
 
+## 📁 Documentation
+
+- 📄 [Project Document](documentation/iara.docx)
+- 📊 [Presentation](documentation/iara.pptx)
+
+---
+
 ## 👤 Authors
 
 **Hristiyan Grozdev**
