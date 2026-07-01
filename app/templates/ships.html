@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}{{ t("ships_title") }}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4 fade-in">
+    <h1 class="page-title mb-0">{{ t("ships_title") }}</h1>
+    <span class="badge bg-primary fs-6">{{ ships|length }} {{ t("ships_count") }}</span>
+</div>
+
+<div class="card mb-4 border-0 fade-in">
+    <div class="card-header bg-white border-bottom">
+        <h5 class="mb-0">{{ t("ships_register_new") }}</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" action="/ships/new">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label" for="international_number">{{ t("ships_intl_number") }}</label>
+                    <input type="text" id="international_number" name="international_number" class="form-control" required placeholder="e.g. BG-001">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="callsign">{{ t("ships_callsign") }}</label>
+                    <input type="text" id="callsign" name="callsign" class="form-control" placeholder="e.g. ALPHA1">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="owner_name">{{ t("ships_owner_name") }}</label>
+                    <input type="text" id="owner_name" name="owner_name" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="captain_name">{{ t("ships_captain_name") }}</label>
+                    <input type="text" id="captain_name" name="captain_name" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="length">{{ t("ships_length") }}</label>
+                    <input type="number" step="0.1" id="length" name="length" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="tonnage">{{ t("ships_tonnage") }}</label>
+                    <input type="number" step="0.1" id="tonnage" name="tonnage" class="form-control">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-4">{{ t("ships_register_btn") }}</button>
+        </form>
+    </div>
+</div>
+
+<div class="card border-0 fade-in">
+    <div class="card-header bg-white border-bottom">
+        <h5 class="mb-0">{{ t("ships_registered") }}</h5>
+    </div>
+    <div class="card-body p-0">
+        {% if ships %}
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>{{ t("table_id") }}</th>
+                        <th>{{ t("ships_intl_number") }}</th>
+                        <th>{{ t("table_owner") }}</th>
+                        <th>{{ t("table_captain") }}</th>
+                        <th>{{ t("ships_length") }}</th>
+                        <th>{{ t("ships_tonnage") }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ship in ships %}
+                    <tr>
+                        <td><span class="badge bg-secondary">{{ ship.id }}</span></td>
+                        <td><strong>{{ ship.international_number }}</strong></td>
+                        <td>{{ ship.owner_name }}</td>
+                        <td>{{ ship.captain_name or "—" }}</td>
+                        <td>{{ ship.length and (ship.length|string + " m") or "—" }}</td>
+                        <td>{{ ship.tonnage and (ship.tonnage|string + " t") or "—" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center text-muted py-5">
+            <p class="mb-0">{{ t("ships_empty") }}</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

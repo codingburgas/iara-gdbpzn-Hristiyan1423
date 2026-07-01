@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Edit Permit{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="page-title mb-0">{{ "Edit Permit" if lang == "en" else "Редактирай разрешително" }}</h1>
+    <a href="/admin/dashboard" class="btn btn-outline-secondary btn-sm">{{ "Back" if lang == "en" else "Назад" }}</a>
+</div>
+
+<div class="card border-0">
+    <div class="card-body p-4">
+        <form method="post" action="/admin/permits/{{ permit.id }}/edit">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">{{ "Holder Name" if lang == "en" else "Притежател" }}</label>
+                    <input type="text" name="holder_name" class="form-control" value="{{ permit.holder_name }}" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">{{ "Captain Name" if lang == "en" else "Капитан" }}</label>
+                    <input type="text" name="captain_name" class="form-control" value="{{ permit.captain_name or '' }}">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">{{ "Expiry Date" if lang == "en" else "Дата на изтичане" }}</label>
+                    <input type="date" name="expiry_date" class="form-control" value="{{ permit.expiry_date }}" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">{{ "Gear Description" if lang == "en" else "Уреди" }}</label>
+                    <input type="text" name="gear_description" class="form-control" value="{{ permit.gear_description or '' }}">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-4">{{ "Save Changes" if lang == "en" else "Запази промените" }}</button>
+        </form>
+    </div>
+</div>
+{% endblock %}  

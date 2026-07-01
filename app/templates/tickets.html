@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}{{ t("tickets_title") }}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4 fade-in">
+    <h1 class="page-title mb-0">{{ t("tickets_title") }}</h1>
+    <span class="badge bg-primary fs-6">{{ tickets|length }} {{ t("tickets_count") }}</span>
+</div>
+
+<div class="card mb-4 border-0 fade-in">
+    <div class="card-header bg-white border-bottom">
+        <h5 class="mb-0">{{ t("tickets_sell_new") }}</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" action="/tickets/new">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label" for="holder_name">{{ t("tickets_holder") }}</label>
+                    <input type="text" id="holder_name" name="holder_name" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="issue_date">{{ t("tickets_issue_date") }}</label>
+                    <input type="date" id="issue_date" name="issue_date" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="duration">{{ t("tickets_duration") }}</label>
+                    <select id="duration" name="duration" class="form-select" required>
+                        <option value="daily">1 {{ "Day" if lang == "en" else "ден" }}</option>
+                        <option value="weekly">1 {{ "Week" if lang == "en" else "седмица" }}</option>
+                        <option value="annual">1 {{ "Year" if lang == "en" else "година" }}</option>
+                    </select>
+                </div>
+                <div class="col-md-12 d-flex flex-wrap gap-4 mt-2">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="is_minor" name="is_minor">
+                        <label class="form-check-label" for="is_minor">{{ t("tickets_minor") }}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="is_pensioner" name="is_pensioner">
+                        <label class="form-check-label" for="is_pensioner">{{ t("tickets_pensioner") }}</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="is_disabled" name="is_disabled">
+                        <label class="form-check-label" for="is_disabled">{{ t("tickets_disabled") }}</label>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-4">{{ t("tickets_sell_btn") }}</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

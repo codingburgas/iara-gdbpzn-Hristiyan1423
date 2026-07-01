@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}{{ t("permits_title") }}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4 fade-in">
+    <h1 class="page-title mb-0">{{ t("permits_title") }}</h1>
+    <span class="badge bg-primary fs-6">{{ permits|length }} {{ t("permits_count") }}</span>
+</div>
+
+<div class="card mb-4 border-0 fade-in">
+    <div class="card-header bg-white border-bottom">
+        <h5 class="mb-0">{{ t("permits_issue_new") }}</h5>
+    </div>
+    <div class="card-body">
+        <form method="post" action="/permits/new">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label" for="ship_id">{{ t("permits_ship_id") }}</label>
+                    <input type="number" id="ship_id" name="ship_id" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="holder_name">{{ t("permits_holder") }}</label>
+                    <input type="text" id="holder_name" name="holder_name" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="captain_name">{{ t("permits_captain") }}</label>
+                    <input type="text" id="captain_name" name="captain_name" class="form-control">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="issue_date">{{ t("permits_issue_date") }}</label>
+                    <input type="date" id="issue_date" name="issue_date" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="expiry_date">{{ t("permits_expiry_date") }}</label>
+                    <input type="date" id="expiry_date" name="expiry_date" class="form-control" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label" for="gear_description">{{ t("permits_gear") }}</label>
+                    <input type="text" id="gear_description" name="gear_description" class="form-control" placeholder="e.g. Trawl net">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-4">{{ t("permits_issue_btn") }}</button>
+        </form>
+    </div>
+</div>
+
+<div class="card border-0 fade-in">
+    <div class="card-header bg-white border-bottom">
+        <h5 class="mb-0">{{ t("permits_issued") }}</h5>
+    </div>
+    <div class="card-body p-0">
+        {% if permits %}
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>{{ t("table_id") }}</th>
+                        <th>{{ t("permits_ship_id") }}</th>
+                        <th>{{ t("permits_holder") }}</th>
+                        <th>{{ t("permits_captain") }}</th>
+                        <th>{{ t("table_valid_until") }}</th>
+                        <th>{{ t("table_status") }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for permit in permits %}
+                    <tr>
+                        <td><span class="badge bg-secondary">{{ permit.id }}</span></td>
+                        <td>{{ permit.ship_id }}</td>
+                        <td>{{ permit.holder_name }}</td>
+                        <td>{{ permit.captain_name or "—" }}</td>
+                        <td>{{ permit.expiry_date }}</td>
+                        <td>
+                            {% if permit.is_revoked %}
+                            <span class="badge bg-danger">{{ t("status_revoked") }}</span>
+                            {% else %}
+                            <span class="badge bg-success">{{ t("status_active") }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center text-muted py-5">
+            <p class="mb-0">{{ t("permits_empty") }}</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

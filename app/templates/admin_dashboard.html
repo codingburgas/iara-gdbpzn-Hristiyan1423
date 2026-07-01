@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Staff Dashboard{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="page-title mb-0">Staff Dashboard</h1>
+    <a href="/admin/logout" class="btn btn-outline-danger btn-sm">Log Out</a>
+</div>
+
+<h5>Ships ({{ ships|length }})</h5>
+<div class="table-responsive mb-4">
+    <table class="table table-sm table-striped align-middle">
+        <thead><tr><th>ID</th><th>Int'l Number</th><th>Owner</th><th>Captain</th><th></th></tr></thead>
+        <tbody>
+        {% for s in ships %}
+        <tr>
+            <td>{{ s.id }}</td>
+            <td>{{ s.international_number }}</td>
+            <td>{{ s.owner_name }}</td>
+            <td>{{ s.captain_name or "-" }}</td>
+            <td class="d-flex gap-2">
+                <a href="/admin/ships/{{ s.id }}/edit" class="btn btn-sm btn-outline-primary">{{ "Edit" if lang == "en" else "Редактирай" }}</a>
+                <form method="post" action="/admin/ships/{{ s.id }}/delete" onsubmit="return confirm('{{ 'Delete this ship?' if lang == 'en' else 'Изтрий кораба?' }}');">
+                    <button type="submit" class="btn btn-sm btn-outline-danger">{{ "Delete" if lang == "en" else "Изтрий" }}</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<h5>Permits ({{ permits|length }})</h5>
+<div class="table-responsive mb-4">
+    <table class="table table-sm table-striped align-middle">
+        <thead><tr><th>ID</th><th>Ship ID</th><th>Holder</th><th>Valid Until</th><th>Status</th><th></th></tr></thead>
+        <tbody>
+        {% for p in permits %}
+        <tr>
+            <td>{{ p.id }}</td>
+            <td>{{ p.ship_id }}</td>
+            <td>{{ p.holder_name }}</td>
+            <td>{{ p.expiry_date }}</td>
+            <td>
+                {% if p.is_revoked %}
+                <span class="badge bg-danger">Revoked</span>
+                {% else %}
+                <span class="badge bg-success">Active</span>
+                {% endif %}
+            </td>
+            <td class="d-flex gap-2">
+                <a href="/admin/permits/{{ p.id }}/edit" class="btn btn-sm btn-outline-primary">{{ "Edit" if lang == "en" else "Редактирай" }}</a>
+                {% if not p.is_revoked %}
+                <form method="post" action="/admin/permits/{{ p.id }}/revoke" onsubmit="return confirm('{{ 'Revoke this permit?' if lang == 'en' else 'Отнемане на разрешителното?' }}');">
+                    <input type="hidden" name="reason" value="Revoked by staff">
+                    <button type="submit" class="btn btn-sm btn-outline-warning">{{ "Revoke" if lang == "en" else "Отнеми" }}</button>
+                </form>
+                {% endif %}
+                <form method="post" action="/admin/permits/{{ p.id }}/delete" onsubmit="return confirm('{{ 'Delete this permit?' if lang == 'en' else 'Изтрий разрешителното?' }}');">
+                    <button type="submit" class="btn btn-sm btn-outline-danger">{{ "Delete" if lang == "en" else "Изтрий" }}</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<h5>Tickets ({{ tickets|length }})</h5>
+<div class="table-responsive">
+    <table class="table table-sm table-striped align-middle">
+        <thead><tr><th>ID</th><th>Holder</th><th>Valid Until</th><th>Price</th><th></th></tr></thead>
+        <tbody>
+        {% for tk in tickets %}
+        <tr>
+            <td>{{ tk.id }}</td>
+            <td>{{ tk.holder_name }}</td>
+            <td>{{ tk.expiry_date }}</td>
+            <td>{{ tk.price }} BGN</td>
+            <td>
+                <form method="post" action="/admin/tickets/{{ tk.id }}/delete" onsubmit="return confirm('{{ 'Delete this ticket?' if lang == 'en' else 'Изтрий билета?' }}');">
+                    <button type="submit" class="btn btn-sm btn-outline-danger">{{ "Delete" if lang == "en" else "Изтрий" }}</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Edit Ship{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="page-title mb-0">{{ "Edit Ship" if lang == "en" else "Редактирай кораб" }}</h1>
+    <a href="/admin/dashboard" class="btn btn-outline-secondary btn-sm">{{ "Back" if lang == "en" else "Назад" }}</a>
+</div>
+
+<div class="card border-0">
+    <div class="card-body p-4">
+        <form method="post" action="/admin/ships/{{ ship.id }}/edit">
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">{{ "International Number" if lang == "en" else "Международен номер" }}</label>
+                    <input type="text" name="international_number" class="form-control" value="{{ ship.international_number }}" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">{{ "Callsign" if lang == "en" else "Позивна" }}</label>
+                    <input type="text" name="callsign" class="form-control" value="{{ ship.callsign or '' }}">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">{{ "Owner Name" if lang == "en" else "Собственик" }}</label>
+                    <input type="text" name="owner_name" class="form-control" value="{{ ship.owner_name }}" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">{{ "Captain Name" if lang == "en" else "Капитан" }}</label>
+                    <input type="text" name="captain_name" class="form-control" value="{{ ship.captain_name or '' }}">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">{{ "Length (m)" if lang == "en" else "Дължина (м)" }}</label>
+                    <input type="number" step="0.1" name="length" class="form-control" value="{{ ship.length or '' }}">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">{{ "Tonnage" if lang == "en" else "Тонаж" }}</label>
+                    <input type="number" step="0.1" name="tonnage" class="form-control" value="{{ ship.tonnage or '' }}">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-4">{{ "Save Changes" if lang == "en" else "Запази промените" }}</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

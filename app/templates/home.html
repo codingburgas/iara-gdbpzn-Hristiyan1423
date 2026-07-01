@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}IARA System{% endblock %}
+{% block content %}
+
+<div class="hero text-center py-5 mb-5 fade-in">
+    <h1 class="display-4 fw-bold page-title mb-3">{{ t("home_title") }}</h1>
+    <p class="lead text-muted mb-4">{{ t("home_subtitle") }}</p>
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+        <a href="/ships/page" class="btn btn-primary btn-lg px-4">{{ t("home_explore_ships") }}</a>
+        <a href="/permits/page" class="btn btn-outline-primary btn-lg px-4">{{ t("home_view_permits") }}</a>
+    </div>
+</div>
+
+<div class="row g-4 mb-5 fade-in">
+    <div class="col-md-4">
+        <div class="card h-100 border-0 text-center overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=600&q=80" class="card-img-top" style="height:160px; object-fit:cover;" alt="Fishing boat">            <div class="card-body">
+                <h5 class="card-title">{{ t("card_ships_title") }}</h5>
+                <p class="card-text text-muted">{{ t("card_ships_text") }}</p>
+                <a href="/ships/page" class="btn btn-sm btn-outline-primary">{{ t("go_to") }} {{ t("nav_ships") }}</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 border-0 text-center overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1505228395891-9a51e7e86bf6?w=600&q=80" class="card-img-top" style="height:160px; object-fit:cover;" alt="Document and permit">
+            <div class="card-body">
+                <h5 class="card-title">{{ t("card_permits_title") }}</h5>
+                <p class="card-text text-muted">{{ t("card_permits_text") }}</p>
+                <a href="/permits/page" class="btn btn-sm btn-outline-primary">{{ t("go_to") }} {{ t("nav_permits") }}</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 border-0 text-center overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1499242611767-cf8b9be02854?w=600&q=80" class="card-img-top" style="height:160px; object-fit:cover;" alt="Fishing rod">
+            <div class="card-body">
+                <h5 class="card-title">{{ t("card_tickets_title") }}</h5>
+                <p class="card-text text-muted">{{ t("card_tickets_text") }}</p>
+                <a href="/tickets/page" class="btn btn-sm btn-outline-primary">{{ t("go_to") }} {{ t("nav_tickets") }}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 fade-in mb-5">
+    <div class="card-body p-4">
+        <h5 class="mb-3">{{ t("about_title") }}</h5>
+        <p class="text-muted mb-0">{{ t("about_text") }}</p>
+    </div>
+</div>
+
+{% endblock %}
