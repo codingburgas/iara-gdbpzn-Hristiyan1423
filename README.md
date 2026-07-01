@@ -25,12 +25,6 @@ This project models the core workflows of IARA — the Bulgarian government agen
 
 ---
 
-## 📁 Documentation
-
-- 📄 [Project Document](https://codingburgas-my.sharepoint.com/:w:/g/personal/hagrozdev23_codingburgas_bg/IQDFAF6zicUgQIDgWh80UImrAYVzC_dyGw8Q24r26B91E6M?e=0dXEc7)
-- 📊 [Presentation](https://codingburgas-my.sharepoint.com/:p:/g/personal/hagrozdev23_codingburgas_bg/IQDL7jAL3KcNS7e4NK9lKOcpAQWrR-2Lt-XPa6SA9N9u47o?e=43twwb)
-
----
 
 ## 👤 Authors
 
